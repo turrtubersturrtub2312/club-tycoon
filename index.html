@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Club tycoon (New game)</title><meta name="title" content="Club tycoon (New game)"><meta charset="UTF-8">
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Club tycoon (New update)</title><meta name="title" content="Club tycoon (New update)"><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="./style.css"><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
   "imports": {}
 }</script></head><body>
@@ -11,100 +11,138 @@
     <link rel="stylesheet" href="style.css">
 
 
-    <div class="game-container">
-        <!-- Header & Stats -->
-        <header>
+
+    <!-- MAIN MENU -->
+    <div id="main-menu" class="screen active">
+        <div class="menu-card">
             <h1>⚽ Football Club Tycoon</h1>
-            <div class="top-bar">
-                <div><strong>Club:</strong> <span id="club-name">FC United</span></div>
-                <div><strong>Balance:</strong> $<span id="balance">1,000,000</span></div>
-                <div><strong>Fans:</strong> <span id="fans">5,000</span></div>
-                <div><strong>Board Confidence:</strong> <span id="board-confidence">100</span>%</div>
-            </div>
-        </header>
-
-        <!-- Navigation Tabs -->
-        <nav class="nav-tabs">
-            <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
-            <button class="tab-btn" data-tab="tactics">Tactics</button>
-            <button class="tab-btn" data-tab="market">Transfer Market</button>
-            <button class="tab-btn" data-tab="finance">Finances &amp; Sponsors</button>
-            <button class="tab-btn" data-tab="trophies">Trophies</button>
-        </nav>
-
-        <!-- TAB 1: DASHBOARD & MATCH -->
-        <section id="tab-dashboard" class="tab-content active">
-            <h2>Match Center</h2>
-            <div class="card">
-                <button class="action-btn" id="play-match-btn">Play Next Match</button>
-            </div>
-            
-            <div class="card">
-                <h3>Live Commentary &amp; Log</h3>
-                <div id="commentary-box" class="commentary-box">
-                    <p>Welcome Manager! Click "Play Next Match" to kick off.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: TACTICS -->
-        <section id="tab-tactics" class="tab-content">
-            <h2>Match Tactics</h2>
-            <div class="card">
-                <label for="tactics-select"><strong>Select Playing Style:</strong></label>
-                <select id="tactics-select">
-                    <option value="Balanced">Balanced</option>
-                    <option value="Gegenpressing">Gegenpressing (High Attack / High Risk)</option>
-                    <option value="Park the Bus">Park the Bus (High Defense / Low Attack)</option>
-                    <option value="Tiki-Taka">Tiki-Taka (Moderate Attack / High Control)</option>
-                </select>
-            </div>
-            <div class="card">
-                <h3>Current Squad</h3>
-                <ul id="squad-list" class="item-list"></ul>
-            </div>
-        </section>
-
-        <!-- TAB 3: TRANSFER MARKET -->
-        <section id="tab-market" class="tab-content">
-            <h2>Transfer Market</h2>
-            <div class="card">
-                <h3>Available Players</h3>
-                <ul id="market-list" class="item-list"></ul>
-            </div>
-        </section>
-
-        <!-- TAB 4: FINANCES & SPONSORS -->
-        <section id="tab-finance" class="tab-content">
-            <h2>Club Finances</h2>
-            <div class="card">
-                <h3>Ticket Pricing</h3>
-                <p>Current Ticket Price: $<span id="ticket-price-val">15</span></p>
-                <input type="range" id="ticket-price" min="5" max="50" value="15">
-                <small>Higher prices generate more per fan, but reduce match attendance.</small>
-            </div>
-            <div class="card">
-                <h3>Sponsorship Deals</h3>
-                <div id="sponsor-container"></div>
-            </div>
-        </section>
-
-        <!-- TAB 5: TROPHIES -->
-        <section id="tab-trophies" class="tab-content">
-            <h2>Trophy Cabinet</h2>
-            <div class="card">
-                <div class="trophy-grid">
-                    <div class="trophy-card">
-                        🏆 <strong>League Titles:</strong> <span id="league-trophies">0</span>
-                    </div>
-                    <div class="trophy-card">
-                        🥇 <strong>Cup Titles:</strong> <span id="cup-trophies">0</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <button class="menu-btn" id="start-game-btn">Play</button>
+            <button class="menu-btn" id="about-btn">About</button>
+            <button class="menu-btn" id="news-btn">News</button>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- GAME INTERFACE -->
+    <div id="game-screen" class="screen">
+        <div class="game-container">
+            <button class="back-menu-btn" id="back-to-menu-btn">⬅ Main Menu</button>
+            
+            <header>
+                <h1>⚽ Football Club Tycoon</h1>
+                <div class="top-bar">
+                    <div><strong>Club:</strong> <span id="club-name">FC United</span></div>
+                    <div><strong>Balance:</strong> $<span id="balance">10</span></div>
+                    <div><strong>Fans:</strong> <span id="fans">5,000</span></div>
+                    <div><strong>Board Confidence:</strong> <span id="board-confidence">100</span>%</div>
+                </div>
+            </header>
+
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+                <button class="tab-btn" data-tab="tactics">Tactics</button>
+                <button class="tab-btn" data-tab="market">Transfer Market</button>
+                <button class="tab-btn" data-tab="finance">Finances &amp; Sponsors</button>
+                <button class="tab-btn" data-tab="trophies">Trophies</button>
+            </nav>
+
+            <!-- TAB 1: DASHBOARD & MATCH -->
+            <section id="tab-dashboard" class="tab-content active">
+                <h2>Match Center</h2>
+                <div class="card">
+                    <button class="action-btn" id="play-match-btn">Play Next Match</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Live Commentary &amp; Log</h3>
+                    <div id="commentary-box" class="commentary-box">
+                        <p>Welcome Manager! Click "Play Next Match" to kick off.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: TACTICS -->
+            <section id="tab-tactics" class="tab-content">
+                <h2>Match Tactics</h2>
+                <div class="card">
+                    <label for="tactics-select"><strong>Select Playing Style:</strong></label>
+                    <select id="tactics-select">
+                        <option value="Balanced">Balanced</option>
+                        <option value="Gegenpressing">Gegenpressing (High Attack / High Risk)</option>
+                        <option value="Park the Bus">Park the Bus (High Defense / Low Attack)</option>
+                        <option value="Tiki-Taka">Tiki-Taka (Moderate Attack / High Control)</option>
+                    </select>
+                </div>
+                <div class="card">
+                    <h3>Current Squad</h3>
+                    <ul id="squad-list" class="item-list"></ul>
+                </div>
+            </section>
+
+            <!-- TAB 3: TRANSFER MARKET -->
+            <section id="tab-market" class="tab-content">
+                <h2>Transfer Market</h2>
+                <div class="card">
+                    <h3>Available Players</h3>
+                    <ul id="market-list" class="item-list"></ul>
+                </div>
+            </section>
+
+            <!-- TAB 4: FINANCES & SPONSORS -->
+            <section id="tab-finance" class="tab-content">
+                <h2>Club Finances</h2>
+                <div class="card">
+                    <h3>Ticket Pricing</h3>
+                    <p>Current Ticket Price: $<span id="ticket-price-val">15</span></p>
+                    <input type="range" id="ticket-price" min="5" max="50" value="15">
+                    <small>Higher prices generate more per fan, but reduce match attendance.</small>
+                </div>
+                <div class="card">
+                    <h3>Sponsorship Deals</h3>
+                    <div id="sponsor-container"></div>
+                </div>
+            </section>
+
+            <!-- TAB 5: TROPHIES -->
+            <section id="tab-trophies" class="tab-content">
+                <h2>Trophy Cabinet</h2>
+                <div class="card">
+                    <div class="trophy-grid">
+                        <div class="trophy-card">
+                            🏆 <strong>League Titles:</strong> <span id="league-trophies">0</span>
+                        </div>
+                        <div class="trophy-card">
+                            🥇 <strong>Cup Titles:</strong> <span id="cup-trophies">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- MODAL POPUPS (ABOUT & NEWS) -->
+    <div id="modal-overlay" class="modal">
+        <div class="modal-card">
+            <h2 id="modal-title">Title</h2>
+            <div id="modal-body">Body content</div>
+            <button class="action-btn" id="close-modal-btn">Close</button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL (SPECIAL FOR OWNER) -->
+    <div id="admin-panel" class="modal">
+        <div class="modal-card">
+            <h2>👑 Owner Admin Panel</h2>
+            <p style="font-size: 12px; color: #888; margin-bottom: 10px;">Post game update news</p>
+            
+            <input type="text" id="admin-news-title" placeholder="News Title" class="admin-input">
+            <textarea id="admin-news-body" placeholder="News Details..." class="admin-input"></textarea>
+            <input type="text" id="admin-news-img" placeholder="Image URL (Optional)" class="admin-input">
+            <input type="datetime-local" id="admin-news-date" class="admin-input">
+            
+            <button class="action-btn" id="publish-news-btn">Publish News</button>
+            <button class="action-btn" id="close-admin-btn" style="background-color: #e53935; color: white; margin-top: 5px;">Close Panel</button>
+        </div>
+    </div>
+
 
 <script src="./script.js" type="module"></script></body></html>
