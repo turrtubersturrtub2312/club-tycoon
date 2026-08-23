@@ -1,20 +1,14 @@
-// Game State (Loaded from LocalStorage if available)
-let balance = parseInt(localStorage.getItem('fct_balance')) || 10;
-let fans = parseInt(localStorage.getItem('fct_fans')) || 5000;
-let boardConfidence = parseInt(localStorage.getItem('fct_boardConfidence')) || 100;
-let wins = parseInt(localStorage.getItem('fct_wins')) || 0;
-
+// Load Balance Automatically from LocalStorage
+let balance = parseFloat(localStorage.getItem('tycoon_balance')) || 10;
+let fans = parseInt(localStorage.getItem('tycoon_fans')) || 5000;
+let boardConfidence = 100;
 let ticketPrice = 15;
 let currentTactic = "Balanced";
+let wins = 0;
 let leagueTitles = 0;
 let cupTitles = 0;
 
 let activeSponsor = null;
-
-// News & Comment Data
-let newsList = JSON.parse(localStorage.getItem('fct_newsList')) || [];
-
-// Owner Key Trigger Sequence
 let keySequence = "";
 
 let squad = [
@@ -36,29 +30,18 @@ const sponsors = [
     { name: "TechCorp Global", payout: 100000, reqWins: 5 }
 ];
 
-// Save Game State to Browser
-function saveGameData() {
-    localStorage.setItem('fct_balance', balance);
-    localStorage.setItem('fct_fans', fans);
-    localStorage.setItem('fct_boardConfidence', boardConfidence);
-    localStorage.setItem('fct_wins', wins);
-    localStorage.setItem('fct_newsList', JSON.stringify(newsList));
-}
-
 function setupEventListeners() {
     document.getElementById('start-game-btn').addEventListener('click', () => showScreen('game-screen'));
     document.getElementById('back-to-menu-btn').addEventListener('click', () => showScreen('main-menu'));
 
     document.getElementById('about-btn').addEventListener('click', showAboutModal);
-    document.getElementById('news-btn').addEventListener('click', showNewsModal);
     document.getElementById('close-modal-btn').addEventListener('click', closeModal);
 
     document.getElementById('close-admin-btn').addEventListener('click', () => {
         document.getElementById('admin-panel').style.display = 'none';
     });
-    document.getElementById('publish-news-btn').addEventListener('click', publishNews);
 
-    // Secret Owner Trigger "777"
+    // Secret Code "777" for Owner
     document.addEventListener('keydown', (e) => {
         keySequence += e.key;
         if (keySequence.length > 3) keySequence = keySequence.substring(1);
@@ -73,15 +56,12 @@ function setupEventListeners() {
 
     const tabBtns = document.querySelectorAll('.tab-btn');
     tabBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const tabId = e.target.getAttribute('data-tab');
-            switchTab(tabId, e.target);
-        });
+        btn.addEventListener('click', (e) => switchTab(e.target.getAttribute('data-tab'), e.target));
     });
 
     const tacticsSelect = document.getElementById('tactics-select');
     if (tacticsSelect) {
-        tacticsSelect.addEventListener('change', (e) => { currentTactic = e.target.value; });
+        tacticsSelect.addEventListener('change', (e) => currentTactic = e.target.value);
     }
 
     const ticketSlider = document.getElementById('ticket-price');
@@ -106,78 +86,8 @@ function showAboutModal() {
     document.getElementById('modal-overlay').style.display = 'flex';
 }
 
-function showNewsModal() {
-    document.getElementById('modal-title').innerText = "Game News";
-    renderNewsContent();
-    document.getElementById('modal-overlay').style.display = 'flex';
-}
-
-function renderNewsContent() {
-    const body = document.getElementById('modal-body');
-    if (newsList.length === 0) {
-        body.innerHTML = "<p>Saat ini belum ada berita tentang game ini.</p>";
-    } else {
-        body.innerHTML = newsList.map((item, index) => `
-            <div style="border-bottom: 1px solid #444; padding-bottom: 15px; margin-bottom: 15px;">
-                <h3>${item.title}</h3>
-                <small style="color: #00e676;">Scheduled Date: ${item.date}</small>
-                <p style="margin-top: 5px;">${item.body}</p>
-                ${item.img ? `<img src="${item.img}" class="news-img" alt="News Image">` : ''}
-                
-                <!-- Comment Section -->
-                <div style="margin-top: 10px;">
-                    <input type="text" id="comment-input-${index}" placeholder="Write a comment..." class="admin-input" style="font-size:12px; padding:6px;">
-                    <button class="action-btn" style="font-size:12px; padding:6px;" onclick="addComment(${index})">Comment</button>
-                </div>
-                <div id="comments-list-${index}">
-                    ${item.comments ? item.comments.map(c => `<div class="comment-box"><strong>Player:</strong> ${c}</div>`).join('') : ''}
-                </div>
-            </div>
-        `).join('');
-    }
-}
-
-function addComment(newsIndex) {
-    const input = document.getElementById(`comment-input-${newsIndex}`);
-    const text = input.value.trim();
-    if (text) {
-        if (!newsList[newsIndex].comments) newsList[newsIndex].comments = [];
-        newsList[newsIndex].comments.push(text);
-        saveGameData();
-        renderNewsContent();
-    }
-}
-
 function closeModal() {
     document.getElementById('modal-overlay').style.display = 'none';
-}
-
-function publishNews() {
-    const title = document.getElementById('admin-news-title').value;
-    const body = document.getElementById('admin-news-body').value;
-    const img = document.getElementById('admin-news-img').value;
-    const date = document.getElementById('admin-news-date').value;
-
-    if (!title || !body) {
-        alert("Please enter title and content!");
-        return;
-    }
-
-    newsList.unshift({
-        title, body, img,
-        date: date ? new Date(date).toLocaleString() : 'TBA',
-        comments: []
-    });
-
-    saveGameData();
-
-    document.getElementById('admin-news-title').value = '';
-    document.getElementById('admin-news-body').value = '';
-    document.getElementById('admin-news-img').value = '';
-    document.getElementById('admin-news-date').value = '';
-
-    document.getElementById('admin-panel').style.display = 'none';
-    alert("News published successfully!");
 }
 
 function init() {
@@ -188,7 +98,11 @@ function init() {
     renderSponsors();
 }
 
+// Save Balance Permanently to LocalStorage
 function updateUI() {
+    localStorage.setItem('tycoon_balance', balance);
+    localStorage.setItem('tycoon_fans', fans);
+
     document.getElementById('balance').innerText = balance.toLocaleString();
     document.getElementById('fans').innerText = fans.toLocaleString();
     document.getElementById('board-confidence').innerText = boardConfidence;
@@ -245,7 +159,6 @@ function buyPlayer(index) {
         market.splice(index, 1);
         renderSquad();
         renderMarket();
-        saveGameData();
         updateUI();
         logCommentary(`SIGNED! ${player.name} joined the club for $${player.price.toLocaleString()}.`);
     } else {
@@ -302,8 +215,6 @@ async function playMatch() {
         boardConfidence -= 8;
     }
 
-    // Save Data Automatically After Every Match
-    saveGameData();
     updateUI();
     btn.disabled = false;
 }

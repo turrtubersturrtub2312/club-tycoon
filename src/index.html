@@ -14,7 +14,6 @@
             <h1>⚽ Football Club Tycoon</h1>
             <button class="menu-btn" id="start-game-btn">Play</button>
             <button class="menu-btn" id="about-btn">About</button>
-            <button class="menu-btn" id="news-btn">News</button>
         </div>
     </div>
 
@@ -115,7 +114,7 @@
         </div>
     </div>
 
-    <!-- MODAL POPUPS (ABOUT & NEWS) -->
+    <!-- MODAL POPUP (ABOUT) -->
     <div id="modal-overlay" class="modal">
         <div class="modal-card">
             <h2 id="modal-title">Title</h2>
@@ -128,17 +127,12 @@
     <div id="admin-panel" class="modal">
         <div class="modal-card">
             <h2>👑 Owner Admin Panel</h2>
-            <p style="font-size: 12px; color: #888; margin-bottom: 10px;">Post game update news</p>
-            
-            <input type="text" id="admin-news-title" placeholder="News Title" class="admin-input">
-            <textarea id="admin-news-body" placeholder="News Details..." class="admin-input"></textarea>
-            <input type="text" id="admin-news-img" placeholder="Image URL (Optional)" class="admin-input">
-            <input type="datetime-local" id="admin-news-date" class="admin-input">
-            
-            <button class="action-btn" id="publish-news-btn">Publish News</button>
-            <button class="action-btn" id="close-admin-btn" style="background-color: #e53935; color: white; margin-top: 5px;">Close Panel</button>
+            <p style="font-size: 12px; color: #888; margin-bottom: 10px;">Owner Secret Panel</p>
+            <p>Admin panel active for owner control.</p>
+            <button class="action-btn" id="close-admin-btn" style="background-color: #e53935; color: white; margin-top: 15px;">Close Panel</button>
         </div>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
