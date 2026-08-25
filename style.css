@@ -38,6 +38,10 @@ body {
     margin-bottom: 25px;
 }
 
+.menu-selection-box {
+    margin-bottom: 15px;
+}
+
 .menu-btn {
     width: 100%;
     padding: 14px;
@@ -45,7 +49,7 @@ body {
     background-color: #2a2a2a;
     border: 2px solid #00e676;
     color: #00e676;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
@@ -55,6 +59,46 @@ body {
 .menu-btn:hover {
     background-color: #00e676;
     color: #121212;
+}
+
+.select-btn {
+    border-color: #0288d1;
+    color: #03a9f4;
+}
+
+.select-btn:hover {
+    background-color: #0288d1;
+    color: white;
+}
+
+.fight-btn {
+    border-color: #e53935;
+    color: #ff5252;
+}
+
+.fight-btn:hover {
+    background-color: #e53935;
+    color: white;
+}
+
+.play-btn {
+    background-color: #00e676;
+    color: #121212;
+    font-size: 18px;
+}
+
+.play-btn:hover {
+    background-color: #00c853;
+}
+
+.about-btn {
+    border-color: #555;
+    color: #aaa;
+}
+
+.about-btn:hover {
+    background-color: #555;
+    color: white;
 }
 
 .game-container {
@@ -138,6 +182,13 @@ header h1 {
     color: #00e676;
 }
 
+.match-status-card {
+    text-align: center;
+    font-size: 16px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+}
+
 .action-btn {
     width: 100%;
     padding: 12px;
@@ -171,6 +222,31 @@ header h1 {
     align-items: center;
     padding: 8px 0;
     border-bottom: 1px solid #333;
+}
+
+.club-selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.club-opt-btn {
+    padding: 10px;
+    background-color: #2a2a2a;
+    border: 1px solid #00e676;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.club-opt-btn:hover {
+    background-color: #00e676;
+    color: #121212;
 }
 
 select, input[type="range"] {
