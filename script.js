@@ -23,7 +23,7 @@ const defaultMarket = [
     { name: "Erick Hansen", pos: "DF", rating: 78, price: 400000, wage: 9500 },
     { name: "Sergio Ramos", pos: "DF", rating: 88, price: 5000000, wage: 50000 },
     { name: "Kylian Mbappe", pos: "FW", rating: 92, price: 15000000, wage: 120000 },
-    { name: "Iker Casillas", pos: "GK", rating: 992, price: 900000, wage: 18050  },
+    { name: "Iker Casillas", pos: "GK", rating: 92, price: 900000, wage: 18050 }
 ];
 
 // Load Data Simpanan (localStorage)
@@ -31,11 +31,11 @@ let myClub = localStorage.getItem('tycoon_myClub') || availableClubs[0].name;
 let opponentClub = localStorage.getItem('tycoon_oppClub') || availableClubs[1].name;
 let balance = parseFloat(localStorage.getItem('tycoon_balance')) || 10000000;
 let fans = parseInt(localStorage.getItem('tycoon_fans')) || 5000;
+
+// Load Squad & Market (Auto reset jika market kosong)
 let squad = JSON.parse(localStorage.getItem('tycoon_squad')) || defaultSquad;
 let savedMarket = JSON.parse(localStorage.getItem('tycoon_market'));
-let market = (JSON.parse(localStorage.getItem('tycoon_market')) && JSON.parse(localStorage.getItem('tycoon_market')).length > 0) 
-    ? JSON.parse(localStorage.getItem('tycoon_market')) 
-    : [...defaultMarket];
+let market = (!savedMarket || savedMarket.length === 0) ? [...defaultMarket] : savedMarket;
 
 let boardConfidence = 100;
 let ticketPrice = 15;
@@ -277,7 +277,6 @@ function switchTab(tabId, clickedBtn) {
     if (clickedBtn) clickedBtn.classList.add('active');
 }
 
-// RENDER SQUAD & FUNGSI JUAL
 function renderSquad() {
     const list = document.getElementById('squad-list');
     if (!list) return;
@@ -328,7 +327,6 @@ function getTeamRating() {
     return Math.round(total / squad.length);
 }
 
-// RENDER MARKET & SCOUT PLAYER
 function renderMarket() {
     const list = document.getElementById('market-list');
     if (!list) return;
@@ -348,7 +346,6 @@ function renderMarket() {
         list.appendChild(li);
     });
 }
-
 
 function buyPlayer(index) {
     const player = market[index];
